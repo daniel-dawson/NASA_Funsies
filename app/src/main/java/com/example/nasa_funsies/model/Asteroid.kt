@@ -1,5 +1,9 @@
 package com.example.nasa_funsies.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Asteroid(
     val id: Long,
     val name: String,
@@ -9,4 +13,4 @@ data class Asteroid(
     val relativeVelocityKmPerS: Double,
     val missDistanceAu: Double,
     val closeApproachDate: String
-)
+) : Parcelable
