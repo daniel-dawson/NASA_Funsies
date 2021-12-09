@@ -1,6 +1,8 @@
 package com.example.nasa_funsies.repository
 
 import com.example.nasa_funsies.BuildConfig
+import com.example.nasa_funsies.database.NasaDatabase
+import com.example.nasa_funsies.database.asDatabaseModel
 import com.example.nasa_funsies.model.Asteroid
 import com.example.nasa_funsies.model.ImageDuJour
 import com.example.nasa_funsies.network.API_DATE_FORMAT
@@ -8,6 +10,7 @@ import com.example.nasa_funsies.network.NasaApi
 import com.example.nasa_funsies.network.utils.parseAsteroidsJson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import org.json.JSONObject
@@ -15,7 +18,14 @@ import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AsteroidRepository {
+class AsteroidRepository(private val database: NasaDatabase) {
+    suspend fun refreshAsteroids() {
+        val asteroids = getAsteroidsForWeek()
+            .collect {
+                database.asteroidDao.insertAll(*it.asDatabaseModel())
+            }
+    }
+
     suspend fun getAsteroidsForWeek(): Flow<List<Asteroid>> =
         flow {
             val calendar = Calendar.getInstance()
