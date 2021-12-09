@@ -9,4 +9,6 @@
     <color name="black">#FF000000</color>
     <color name="off_white">#FFEDEDED</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="hazardous_red">#FF8282</color>
+    <color name="default_text_color">@color/white</color>
 </resources>
