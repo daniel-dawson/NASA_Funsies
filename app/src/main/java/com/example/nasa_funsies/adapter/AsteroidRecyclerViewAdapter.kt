@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nasa_funsies.databinding.FragmentAsteroidItemBinding
 import com.example.nasa_funsies.model.Asteroid
 
-class AsteroidRecyclerViewAdapter() :
+class AsteroidRecyclerViewAdapter(val clickListener: AsteroidClickListener) :
     ListAdapter<Asteroid, AsteroidRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -17,14 +17,15 @@ class AsteroidRecyclerViewAdapter() :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val asteroid = getItem(position)
-        holder.bind(asteroid)
+        holder.bind(asteroid, clickListener)
     }
 
     class ViewHolder(val binding: FragmentAsteroidItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(asteroid: Asteroid) {
+        fun bind(asteroid: Asteroid, clickListener: AsteroidClickListener) {
             binding.asteroid = asteroid
+            binding.clickListener = clickListener
         }
 
         companion object {
@@ -38,6 +39,10 @@ class AsteroidRecyclerViewAdapter() :
                 )
             }
         }
+    }
+
+    class AsteroidClickListener(val callback: (asteroid: Asteroid) -> Unit) {
+        fun onClick(asteroid: Asteroid) = callback(asteroid)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Asteroid>() {
