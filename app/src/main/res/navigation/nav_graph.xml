@@ -3,11 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/asteroidFragment">
+    android:label="NavGraph"
+    app:startDestination="@id/asteroid_list_destination">
 
     <fragment
-        android:id="@+id/asteroidFragment"
+        android:id="@+id/asteroid_list_destination"
         android:name="com.example.nasa_funsies.view.AsteroidFragment"
-        android:label="fragment_asteroid_list"
-        tools:layout="@layout/fragment_asteroid_list" />
+        android:label="Asteroids"
+        tools:layout="@layout/fragment_asteroid_list">
+        <action
+            android:id="@+id/action_asteroidFragment_to_asteroidDetailFragment"
+            app:destination="@id/asteroid_detail_destination"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/asteroid_list_destination"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/asteroid_detail_destination"
+        android:name="com.example.nasa_funsies.view.AsteroidDetailFragment"
+        android:label="Asteroid Details">
+        <argument
+            android:name="selectedAsteroid"
+            app:argType="com.example.nasa_funsies.model.Asteroid" />
+    </fragment>
 </navigation>
