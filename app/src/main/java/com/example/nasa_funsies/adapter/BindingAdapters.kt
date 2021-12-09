@@ -2,8 +2,10 @@ package com.example.nasa_funsies.adapter
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nasa_funsies.R
 import com.example.nasa_funsies.model.Asteroid
 import com.example.nasa_funsies.model.ImageDuJour
 import com.example.nasa_funsies.viewmodel.AsteroidStatus
@@ -32,5 +34,43 @@ fun ImageView.loadNasaImage(imageDuJour: ImageDuJour?) {
         .get()
         .also { it.setIndicatorsEnabled(true) }
         .load(uri)
+        .placeholder(R.drawable.placeholder_picture_of_day)
         .into(this)
+}
+
+@BindingAdapter("asteroidStatusImage")
+fun ImageView.setStatusImage(isPotentiallyHazardous: Boolean) {
+    setImageResource(
+        if (isPotentiallyHazardous) {
+            R.drawable.asteroid_hazardous
+        } else {
+            R.drawable.asteroid_safe
+        }
+    )
+}
+
+@BindingAdapter("asteroidStatusIcon")
+fun ImageView.setStatusIcon(isPotentiallyHazardous: Boolean) {
+    setImageResource(
+        if (isPotentiallyHazardous) {
+            R.drawable.ic_status_potentially_hazardous
+        } else {
+            R.drawable.ic_status_normal
+        }
+    )
+}
+
+@BindingAdapter("astronomicalUnitText")
+fun TextView.setAstronomicalUnitText(astronomicalUnits: Double) {
+    text = astronomicalUnits.toString()
+}
+
+@BindingAdapter("kmUnitText")
+fun TextView.setKmUnitText(kmUnits: Double) {
+    text = kmUnits.toString()
+}
+
+@BindingAdapter("velocityText")
+fun TextView.setvelocityText(kmUnits: Double) {
+    text = kmUnits.toString()
 }

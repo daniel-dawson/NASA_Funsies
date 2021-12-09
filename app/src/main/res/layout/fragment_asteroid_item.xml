@@ -7,14 +7,15 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="horizontal"
-        tools:background="#111">
+        tools:background="#111"
+        android:onClick="@{() -> clickListener.onClick(asteroid)}">
 
         <ImageView
             android:id="@+id/list_item_image"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_launcher_foreground"
+            app:asteroidStatusIcon="@{asteroid.potentiallyHazardous}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -60,5 +61,9 @@
         <variable
             name="asteroid"
             type="com.example.nasa_funsies.model.Asteroid" />
+
+        <variable
+            name="clickListener"
+            type="com.example.nasa_funsies.adapter.AsteroidRecyclerViewAdapter.AsteroidClickListener" />
     </data>
 </layout>
