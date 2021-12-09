@@ -16,6 +16,19 @@ enum class AsteroidStatus { LOADING, ERROR, DONE }
 class AsteroidViewModel(
     private val asteroidRepository: AsteroidRepository
 ) : ViewModel() {
+
+    private val _navigateToAsteroidDetails = MutableLiveData<Asteroid?>()
+    val navigateToAsteroidDetails: LiveData<Asteroid?>
+        get() = _navigateToAsteroidDetails
+
+    fun displayAsteroidDetails(asteroid: Asteroid) {
+        _navigateToAsteroidDetails.value = asteroid
+    }
+
+    fun onDisplayAsteroidDetailsHandler() {
+        _navigateToAsteroidDetails.value = null
+    }
+
     private val _status = MutableLiveData<AsteroidStatus>()
     val status: LiveData<AsteroidStatus>
         get() = _status
