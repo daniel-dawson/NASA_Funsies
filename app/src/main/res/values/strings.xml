@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NASA_Funsies</string>
+    <string name="close_approach_data_title">Close approach</string>
+    <string name="absolute_magnitude_title">Absolute magnitude</string>
+    <string name="estimated_diameter_title">Estimated diameter</string>
+    <string name="relative_velocity_title">Relative velocity</string>
+    <string name="distance_from_earth_title">Distance</string>
 </resources>
